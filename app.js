@@ -247,6 +247,10 @@ app.get("/admin/listings" , async (req, res) => {
 });
 
 //user index
+// app.get("/", (req, res) => {
+//     res.render("./overspeedings/usersview/userindex.ejs"); // Render the "index.ejs" file
+// });
+
 app.get("/user/listings", async (req, res) => {
     try {
         // Ensure the user is authenticated
@@ -254,8 +258,6 @@ app.get("/user/listings", async (req, res) => {
             req.flash("error", "You need to log in to view your listings.");
             return res.redirect("/login");
         }
-
-        // Fetch listings where the email matches the logged-in user's email
         
         // Fetch listings for the logged-in user based on their email
         const userListings = await OverspeedingListing.find({ email: req.user.email });
@@ -263,7 +265,6 @@ app.get("/user/listings", async (req, res) => {
         // Pass the filtered data to the EJS template
         
         res.render("./overspeedings/usersview/userindex.ejs", { userListings });
-        
 
     } catch (error) {
         
@@ -350,18 +351,18 @@ app.get("/admin/listings/:id", async (req,res) => {
     res.render("./overspeedings/show.ejs", {listing});
 });
 
-//user detail show
+//only user detail show
 app.get("/admin/users/:id", async(req, res) => {
     let {id} = req.params;
     const listing = await User.findById(id);
     res.render("./overspeedings/usersview/userdetail.ejs", {listing});
 });
 
-//user show
+//user show car
 app.get("/user/listings/:id", async (req, res) => {
-    let {email} = req.params;      
+    let {id} = req.params;      
     const userListings = await OverspeedingListing.findById(id);
-    res.render("./user/usershow.ejs", {userListings});
+    res.render("./overspeedings/usersview/usershow.ejs", {userListings});
 });
 
 //create route
@@ -383,7 +384,7 @@ app.get("/admin/listings/:id/edit", async (req,res) => {
 app.get("/admin/users/:id/edit", async (req,res) => {
     let {id} = req.params;
     const listing = await User.findById(id);
-    res.render("./ovespeedings/usersview/useredit.ejs", {listing});
+    res.render("./overspeedings/usersview/useredit.ejs", {listing});
 });
 
 //update route
@@ -396,8 +397,8 @@ app.put("/admin/listings/:id", async (req,res) => {
 //user update route
 app.put("/admin/users/:id", async (req,res) => {
     let {id} = req.params;
-    const listing = await User.findByIdAndUpdate(id, {...req.body.OverspeedingListing});
-    res.redirect("/admin/listings");
+    const listing = await User.findByIdAndUpdate(id, {...req.body.User});
+    res.redirect("/admin/totalusers");
 });
 
 //delete route

@@ -4,14 +4,14 @@
         <h3>Overspeeding Listing Details</h3>
     </div>
     <div class="card col-5 offset-3">
-        <img src="<%= listing.photo %>" class="card-img-top show-img" alt="number plate image">
+        <img src="<%= userListings.photo %>" class="card-img-top show-img" alt="number plate image">
         <div class="card-body">
-            <p class="card-text">Name: <%= listing.name %></p>
-            <p class="card-text">Email: <%= listing.email %></p>
-            <p class="card-text">Number Plate: <%= listing.number_plate %></p>
-            <p class="card-text">Overspeed amount: <%= listing.overspeeding_amount %> km/h</p>
-            <p class="card-text">Status: <b><%= listing.is_fine_paid ? "Fine Paid" : "Fine Not Paid" %></b></p>
-            <p> <a href="/listings">Back to Listings</a></p>
+            <p class="card-text">Name: <%= userListings.name %></p>
+            <p class="card-text">Email: <%= userListings.email %></p>
+            <p class="card-text">Number Plate: <%= userListings.number_plate %></p>
+            <p class="card-text">Overspeed amount: <%= userListings.overspeeding_amount %> km/h</p>
+            <p class="card-text">Status: <b><%= userListings.is_fine_paid ? "Fine Paid" : "Fine Not Paid" %></b></p>
+            <p> <a href="/user/listings">Back to Listings</a></p>
         </div>       
     </div>
 </div>

@@ -9,7 +9,7 @@
                 type="text" 
                 class="form-control" 
                 id="name" 
-                name="user[name]" 
+                name="User[name]" 
                 value="<%= listing.name %>" 
                 required>
         </div>
@@ -20,7 +20,7 @@
                 type="text" 
                 class="form-control" 
                 id="username" 
-                name="user[username]" 
+                name="User[username]" 
                 value="<%= listing.username %>" 
                 required>
         </div>
@@ -31,14 +31,14 @@
                 type="email" 
                 class="form-control" 
                 id="email" 
-                name="user[email]" 
+                name="User[email]" 
                 value="<%= listing.email %>" 
                 required>
         </div>
 
         <div class="mb-3">
             <label for="role" class="form-label">Role:</label>
-            <select class="form-select" id="role" name="user[role]" required>
+            <select class="form-select" id="role" name="User[role]" required>
                 <option value="admin" <%= listing.role === 'admin' ? 'selected' : '' %>>Admin</option>
                 <option value="user" <%= listing.role === 'user' ? 'selected' : '' %>>User</option>
                 <option value="anonymous" <%= listing.role === 'anonymous' ? 'selected' : '' %>>Anonymous</option>
@@ -51,7 +51,7 @@
                 type="text" 
                 class="form-control" 
                 id="numberPlate" 
-                name="user[number_plate]" 
+                name="User[number_plate]" 
                 value="<%= listing.number_plate.join(', ') %>" 
                 placeholder="Enter comma-separated number plates" 
                 required>
@@ -63,7 +63,7 @@
                 type="number" 
                 class="form-control" 
                 id="totalFines" 
-                name="user[total_unpaid_fines]" 
+                name="User[total_unpaid_fines]" 
                 value="<%= listing.total_unpaid_fines %>" 
                 min="0" 
                 required>
