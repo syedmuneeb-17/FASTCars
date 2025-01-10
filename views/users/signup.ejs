@@ -1,0 +1,121 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Signup Header -->
+            <h1 class="text-center mb-4">Signup</h1>
+
+            <!-- Signup Form -->
+            <form action="/admin/signup" method="POST" class="needs-validation" novalidate>
+                <!-- Name Field -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input 
+                        name="name" 
+                        id="name" 
+                        type="text" 
+                        class="form-control" 
+                        placeholder="Enter your name" 
+                        required 
+                    />
+                    <div class="invalid-feedback">
+                        Please enter your name.
+                    </div>
+                </div>
+
+                <!-- username field -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input 
+                        name="username" 
+                        id="username" 
+                        type="text" 
+                        class="form-control" 
+                        placeholder="Enter  username" 
+                        required 
+                    />
+                    <div class="invalid-feedback">
+                        Please enter your name.
+                    </div>
+                </div>
+ 
+                <!-- Email Field -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input 
+                        name="email" 
+                        id="email" 
+                        type="email" 
+                        class="form-control" 
+                        placeholder="Enter email" 
+                        required 
+                    />
+                    <div class="invalid-feedback">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input 
+                        name="password" 
+                        id="password" 
+                        type="password" 
+                        class="form-control" 
+                        placeholder="Enter password" 
+                        required 
+                    />
+                    <div class="invalid-feedback">
+                        Please enter a password.
+                    </div>
+                </div>
+                <!-- total unpaid fine -->
+                <div class="mb-3">
+                    <label for="total_unpaid_fine" class="form-label">Total Unpaid Fine</label>
+                    <input 
+                        name="total_unpaid_fine" 
+                        id="total_unpaid_fine" 
+                        type="number" 
+                        class="form-control" 
+                        placeholder="Enter total unpaid fine" 
+                        required 
+                    />
+                    <div class="invalid-feedback">
+                        Please enter total unpaid fine.
+                    </div>
+
+                <!-- Number Plate Field -->
+                <div class="mb-3">
+                    <label for="number_plate" class="form-label">Number Plate(s)</label>
+                    <input 
+                        name="number_plate" 
+                        id="number_plate" 
+                        type="text" 
+                        class="form-control" 
+                        placeholder="Enter your number plate(s), separated by commas" 
+                        required 
+                    />
+                    <div class="invalid-feedback">
+                        Please enter at least one number plate.
+                    </div>
+                </div>
+
+                <!-- role field -->
+                <div class="mb-3">
+                    <label for="role" class="form-label">Role</label>
+                    <select name="role" id="role" class="form-control" required>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Please select a role.
+                    </div>
+
+                <!-- Signup Button -->
+                <button type="submit" class="btn btn-primary w-100">Add User</button>
+            </form>
+        </div>
+    </div>
+</div>

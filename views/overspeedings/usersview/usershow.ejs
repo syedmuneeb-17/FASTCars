@@ -1,0 +1,17 @@
+<% layout('layouts/userboilerplate') %>
+<div class="row mt-3">
+    <div class="col-5 offset-3">
+        <h3>Overspeeding Listing Details</h3>
+    </div>
+    <div class="card col-5 offset-3">
+        <img src="<%= listing.photo %>" class="card-img-top show-img" alt="number plate image">
+        <div class="card-body">
+            <p class="card-text">Name: <%= listing.name %></p>
+            <p class="card-text">Email: <%= listing.email %></p>
+            <p class="card-text">Number Plate: <%= listing.number_plate %></p>
+            <p class="card-text">Overspeed amount: <%= listing.overspeeding_amount %> km/h</p>
+            <p class="card-text">Status: <b><%= listing.is_fine_paid ? "Fine Paid" : "Fine Not Paid" %></b></p>
+            <p> <a href="/listings">Back to Listings</a></p>
+        </div>       
+    </div>
+</div>

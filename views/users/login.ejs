@@ -1,0 +1,48 @@
+<% layout("/layouts/commonboilerplate") %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Login Header -->
+            <h1 class="text-center mb-4">Login</h1>
+            
+            <!-- Login Form -->
+            <form action="/login" method="POST" class="needs-validation" novalidate>
+                <!-- Email Field -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input 
+                        name="username" 
+                        id="username" 
+                        type="username" 
+                        class="form-control" 
+                        placeholder="Enter your username" 
+                        required 
+                    />
+                    <div class="invalid-feedback">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+                
+                <!-- Password Field -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input 
+                        name="password" 
+                        id="password" 
+                        type="password" 
+                        class="form-control" 
+                        placeholder="Enter your password" 
+                        required 
+                    />
+                    <div class="invalid-feedback">
+                        Please enter your password.
+                    </div>
+                </div>
+                
+                <!-- Login Button -->
+                <button type="submit" class="btn btn-success w-100">Login</button>
+            </form>
+        </div>
+    </div>
+</div>

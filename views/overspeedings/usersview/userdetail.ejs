@@ -1,0 +1,22 @@
+<% layout('layouts/boilerplate') %>
+<div class="container my-4">
+    <div class="card mx-auto" style="max-width: 600px;">
+        <div class="card-header bg-primary text-white">
+            <h3>User Details</h3>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"><%= listing.name %></h5>
+            <p class="card-text">
+                <strong>Username:</strong> <%= listing.username %><br>
+                <!-- <strong>Password:</strong> <%= listing.hash %><br> -->
+                <strong>Email:</strong> <%= listing.email %><br>
+                <strong>Role:</strong> <%= listing.role %><br>
+                <strong>Number Plate(s):</strong> <%= listing.number_plate.join(", ") %><br>
+                <strong>Total Unpaid Fines:</strong> <%= listing.total_unpaid_fines %>
+            </p>
+        </div>
+        <div class="card-footer text-center">
+            <a href="/admin/totalusers" class="btn btn-secondary">Back to All Users</a>
+        </div>
+    </div>
+</div>

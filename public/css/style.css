@@ -1,0 +1,152 @@
+body{
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container{
+    flex: 1;
+}
+
+/* navbar */
+.navbar{
+    height: 5rem;
+    background-color: #669bbc;
+}
+
+.fa-solid{
+    color: #264653;
+    font-size: 2rem;
+}
+
+.nav-link{
+    color: #222222 !important;
+}
+
+/* footer */
+.f-info-links a{
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+
+.f-info-links{
+    width: 100%;
+}
+
+/* .f-info-socials{
+    width: 100%;
+    font-size: 1.2rem;
+} */
+
+.f-info{
+    text-align: center;
+    height: 5rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+
+.f-info-brand{
+    margin: 5px;
+}
+
+/* cards */
+.listing-card{
+    border: none !important;
+    margin-bottom: 2rem;
+    
+}
+
+.card-img-top{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.card-body{
+    padding: 0;
+}
+
+.card-body p{
+    color: #222222;
+}
+
+.card-text p{
+     font-weight: 400 !important;
+    
+     
+}
+
+.listing-link{
+    text-decoration: none;
+}
+
+/* card effect */
+.card-img-overlay{
+    opacity: 0;
+
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+}
+
+ /* newpage */
+.add-btn{
+    background-color: #264653 !important;
+    border: none !important;
+}
+
+.dlt-btn{
+    border-radius: 5px;
+    border: none !important;
+    height: 35px;
+    padding-top: 5px;
+}
+
+/* show page */
+
+.show-img{
+    height: 30vh;
+}
+
+.btns{
+    display: flex;
+}
+
+.show-card{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.btns{
+    display: flex;
+}
+
+/* admin page */
+.dashboard-heading {
+    background: linear-gradient(90deg, rgba(58,123,213,1) 0%, rgba(0,210,255,1) 100%);
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Optional: Custom styles for cards */
+.card-status {
+    font-weight: bold;
+}
+.status-paid {
+    color: green;
+}
+.status-unpaid {
+    color: red;
+}
