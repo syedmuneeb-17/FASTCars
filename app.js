@@ -379,10 +379,24 @@ app.get("/admin/listings/:id/edit", async (req,res) => {
     res.render("./overspeedings/edit.ejs", {listing});
 });
 
+//user edit route
+app.get("/admin/users/:id/edit", async (req,res) => {
+    let {id} = req.params;
+    const listing = await User.findById(id);
+    res.render("./ovespeedings/usersview/useredit.ejs", {listing});
+});
+
 //update route
 app.put("/admin/listings/:id", async (req,res) => {
     let {id} = req.params;
     const listing = await OverspeedingListing.findByIdAndUpdate(id, {...req.body.OverspeedingListing});
+    res.redirect("/admin/listings");
+});
+
+//user update route
+app.put("/admin/users/:id", async (req,res) => {
+    let {id} = req.params;
+    const listing = await User.findByIdAndUpdate(id, {...req.body.OverspeedingListing});
     res.redirect("/admin/listings");
 });
 
@@ -391,6 +405,13 @@ app.delete("/admin/listings/:id", async (req,res) => {
     let {id} = req.params;
     await OverspeedingListing.findByIdAndDelete(id);
     res.redirect("/admin/listings");
+});
+
+//user delete route
+app.delete("/admin/users/:id", async (req,res) => {
+    let {id} = req.params;
+    await User.findByIdAndDelete(id);
+    res.redirect("/admin/totalusers");
 });
 
 
