@@ -129,21 +129,21 @@ app.post(
 );
 
 // User route
-app.get("/user/listings", async (req, res) => {
-    if (!req.isAuthenticated()) {
-        req.flash("error", "You need to be logged in to view your listings");
-        return res.redirect("/login");
-    }
-    try {
-        // Fetch user-specific listings
-        const userListings = await OverspeedingListing.find({ email: req.user.email });
-        res.render("./user/listings", { userListings }); // Correct path for rendering user listings
-    } catch (err) {
-        console.error("Error fetching user listings:", err);
-        req.flash("error", "Failed to load your listings");
-        res.redirect("/");
-    }
-});
+// app.get("/user/listings", async (req, res) => {
+//     if (!req.isAuthenticated()) {
+//         req.flash("error", "You need to be logged in to view your listings");
+//         return res.redirect("/login");
+//     }
+//     try {
+//         // Fetch user-specific listings
+//         const userListings = await OverspeedingListing.find({ email: req.user.email });
+//         res.render("./user/listings", { userListings }); // Correct path for rendering user listings
+//     } catch (err) {
+//         console.error("Error fetching user listings:", err);
+//         req.flash("error", "Failed to load your listings");
+//         res.redirect("/");
+//     }
+// });
 
 // Admin signup page
 app.get("/admin/signup", isAdmin, async (req, res) => {
@@ -246,11 +246,7 @@ app.get("/admin/listings" , async (req, res) => {
     res.render("./overspeedings/index.ejs", {allListings});
 });
 
-//user index
-// app.get("/", (req, res) => {
-//     res.render("./overspeedings/usersview/userindex.ejs"); // Render the "index.ejs" file
-// });
-
+//user index route
 app.get("/user/listings", async (req, res) => {
     try {
         // Ensure the user is authenticated
@@ -258,14 +254,11 @@ app.get("/user/listings", async (req, res) => {
             req.flash("error", "You need to log in to view your listings.");
             return res.redirect("/login");
         }
-        
         // Fetch listings for the logged-in user based on their email
         const userListings = await OverspeedingListing.find({ email: req.user.email });
         
         // Pass the filtered data to the EJS template
-        
         res.render("./overspeedings/usersview/userindex.ejs", { userListings });
-
     } catch (error) {
         
         req.flash("error", "An error occurred while fetching your listings.");
@@ -358,11 +351,18 @@ app.get("/admin/users/:id", async(req, res) => {
     res.render("./overspeedings/usersview/userdetail.ejs", {listing});
 });
 
+
 //user show car
 app.get("/user/listings/:id", async (req, res) => {
     let {id} = req.params;      
-    const userListings = await OverspeedingListing.findById(id);
-    res.render("./overspeedings/usersview/usershow.ejs", {userListings});
+    const user = await OverspeedingListing.findById(id);
+    res.render("./overspeedings/usersview/userdetail.ejs", {user});
+});
+
+//user info, he can check from its account
+app.get("/user/info", async(req, res) => {
+    const user = await User.findById(req.user._id);
+    res.render("./overspeedings/usersview/userinfo.ejs", {user});
 });
 
 //create route
