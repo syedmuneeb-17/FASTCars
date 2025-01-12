@@ -15,7 +15,7 @@ const passport = require('passport');
 const LocalStrategy = require("passport-local");
 const flash = require("connect-flash");
 
-const MONGO_URL = "mongodb+srv://k213225:p2jQj40WAdzc4EZC@fastcars.kgzrh.mongodb.net";
+const MONGO_URL = "mongodb+srv://k213225:p2jQj40WAdzc4EZC@fastcars.kgzrh.mongodb.net/fypproject";
 
 
 main()
@@ -158,12 +158,33 @@ app.get("/admin/signup", isAdmin, async (req, res) => {
 app.post("/admin/signup", isAdmin, async (req, res) => {
     let { name, username, email, password, number_plate, total_unpaid_fines, role } = req.body;
 
+    number_plate = number_plate.split(',').map(plate => plate.trim());
+
     try {
+
+        if (number_plate.length === 0 || number_plate.some(plate => plate === "")) {
+            req.flash("error", "Please enter at least one valid number plate.");
+            return res.redirect("/admin/signup");
+        }
+        
         // Check if the email already exists
-        const existingUser = await User.findOne({ email });
+        let existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).send("User with this email already exists");
-            res.redirect("/admin/signup");
+           
+            req.flash("error","User with this email already exists, please try again");
+           return res.redirect("/admin/signup");
+        }
+
+        existingUser = await User.findOne({ username });
+        if (existingUser) {
+             req.flash("error","User with this username already exists, please try again");
+           return res.redirect("/admin/signup");
+        }
+
+        existingUser = await User.findOne({ number_plate: { $in: number_plate } });
+        if (existingUser) {
+             req.flash("error","User with this number plate already exists, please try again");
+           return res.redirect("/admin/signup");
         }
 
         // Create a new user
@@ -397,6 +418,7 @@ app.put("/admin/listings/:id", async (req,res) => {
 //user update route
 app.put("/admin/users/:id", async (req,res) => {
     let {id} = req.params;
+    req.body.User.number_plate = req.body.User.number_plate.split(',').map(plate => plate.trim());
     const listing = await User.findByIdAndUpdate(id, {...req.body.User});
     res.redirect("/admin/totalusers");
 });
