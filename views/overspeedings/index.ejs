@@ -1,7 +1,25 @@
 <% layout('layouts/boilerplate') %>
-<%= success %>
+<% if (success && success.length > 0) { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<% } %>
+
 <h3>All Overspeed Listings</h3>
-    
+
+<!-- Search Bar Form with Search Icon -->
+<form method="GET" action="/admin/listings" class="mb-3" id="search-form">
+    <div class="input-group">
+        <!-- Search Icon as a Button -->
+        <button type="submit" class="btn btn-light input-group-text" id="search-btn">
+            <i class="bi bi-search"></i> <!-- Bootstrap Icons Search Icon -->
+        </button>
+        <!-- Search Input -->
+        <input type="text" name="search" class="form-control" placeholder="Search by Name, Email or Numberplates" value="<%= searchQuery || '' %>">
+    </div>
+</form>
+
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
     <% for(let listing of allListings) { %>
     <a href="/admin/listings/<%=listing._id%>" class="listing-link">
@@ -19,9 +37,3 @@
     </a>   
     <% } %>
 </div>
-
-
-
-
-
-

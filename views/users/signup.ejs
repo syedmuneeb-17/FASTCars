@@ -6,6 +6,14 @@
             <!-- Signup Header -->
             <h1 class="text-center mb-4">Signup</h1>
 
+            <% if (error && error.length > 0) { %>
+                
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <%= error %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <% } %>
+
             <!-- Signup Form -->
             <form action="/admin/signup" method="POST" class="needs-validation" novalidate>
                 <!-- Name Field -->
@@ -16,7 +24,7 @@
                         id="name" 
                         type="text" 
                         class="form-control" 
-                        placeholder="Enter your name" 
+                        placeholder="Enter User's name" 
                         required 
                     />
                     <div class="invalid-feedback">
@@ -32,7 +40,7 @@
                         id="username" 
                         type="text" 
                         class="form-control" 
-                        placeholder="Enter  username" 
+                        placeholder="Enter User's username" 
                         required 
                     />
                     <div class="invalid-feedback">
@@ -48,7 +56,7 @@
                         id="email" 
                         type="email" 
                         class="form-control" 
-                        placeholder="Enter email" 
+                        placeholder="Enter User's email" 
                         required 
                     />
                     <div class="invalid-feedback">
@@ -64,7 +72,7 @@
                         id="password" 
                         type="password" 
                         class="form-control" 
-                        placeholder="Enter password" 
+                        placeholder="Enter User's password" 
                         required 
                     />
                     <div class="invalid-feedback">
@@ -72,19 +80,12 @@
                     </div>
                 </div>
                 <!-- total unpaid fine -->
-                <div class="mb-3">
-                    <label for="total_unpaid_fine" class="form-label">Total Unpaid Fine</label>
-                    <input 
-                        name="total_unpaid_fine" 
-                        id="total_unpaid_fine" 
-                        type="number" 
-                        class="form-control" 
-                        placeholder="Enter total unpaid fine" 
-                        required 
+                <input 
+                        name="total_unpaid_fines" 
+                        id="total_unpaid_fines" 
+                        type="hidden" 
+                        value= 0 
                     />
-                    <div class="invalid-feedback">
-                        Please enter total unpaid fine.
-                    </div>
 
                 <!-- Number Plate Field -->
                 <div class="mb-3">
