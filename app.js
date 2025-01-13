@@ -254,18 +254,32 @@ app.get("/user/home", (req, res) => {
 //     res.render("./overspeedings/index.ejs", {allListings});
 // });
 
-app.get("/admin/listings" , async (req, res) => {
-    // if (req.session.user.role !== "admin") {
-    //     return res.status(403).send("Access denied");
-    // }
-    if(!req.isAuthenticated()){
+app.get("/admin/listings", async (req, res) => {
+    if (!req.isAuthenticated()) {
         req.flash("error", "You need to be logged in to create a listing");
         return res.redirect("/login");
     }
 
-    const allListings = await OverspeedingListing.find({});
-    res.render("./overspeedings/index.ejs", {allListings});
+    const searchQuery = req.query.search || ''; // Get the search query from the URL
+    let allListings = [];
+
+    if (searchQuery) {
+        // Use MongoDB $regex operator to search for a substring in the fields
+        allListings = await OverspeedingListing.find({
+            $or: [
+                { name: { $regex: searchQuery, $options: 'i' } }, // case-insensitive search for name
+                { email: { $regex: searchQuery, $options: 'i' } }, // case-insensitive search for email
+                { number_plate: { $regex: searchQuery, $options: 'i' } } // search within array of number plates
+            ]
+        });
+    } else {
+        // If no search query, show all listings
+        allListings = await OverspeedingListing.find({});
+    }
+
+    res.render("./overspeedings/index.ejs", { allListings, searchQuery });
 });
+
 
 //user index route
 app.get("/user/listings", async (req, res) => {
@@ -376,8 +390,8 @@ app.get("/admin/users/:id", async(req, res) => {
 //user show car
 app.get("/user/listings/:id", async (req, res) => {
     let {id} = req.params;      
-    const user = await OverspeedingListing.findById(id);
-    res.render("./overspeedings/usersview/userdetail.ejs", {user});
+    const listing = await OverspeedingListing.findById(id);
+    res.render("./overspeedings/usersview/usershow.ejs", {listing});
 });
 
 //user info, he can check from its account
@@ -398,7 +412,11 @@ app.post("/admin/listings", async (req, res) => {
 app.get("/admin/listings/:id/edit", async (req,res) => {
     let {id} = req.params;
     const listing = await OverspeedingListing.findById(id);
-    res.render("./overspeedings/edit.ejs", {listing});
+    const emails = await User.find({}, "email").lean();
+    let emailArray = emails.map(user => user.email);
+    emailArray.push('anonymous@nu.edu.pk')
+   
+    res.render("./overspeedings/edit.ejs", {listing,emailArray});
 });
 
 //user edit route
@@ -411,11 +429,47 @@ app.get("/admin/users/:id/edit", async (req,res) => {
 //update route
 app.put("/admin/listings/:id", async (req,res) => {
     let {id} = req.params;
-    const listing = await OverspeedingListing.findByIdAndUpdate(id, {...req.body.OverspeedingListing});
+    
+    let Overspeeding = req.body.OverspeedingListing
+    const oldlisting = await OverspeedingListing.findById(id)
+    if(oldlisting.email != 'anonymous@nu.edu.pk' && Overspeeding.is_fine_paid == 'false'){
+        email = oldlisting.email
+    const getuser = await User.findOne(
+        { email: email }, // Query to find the document with the specified email
+      );
+    Overspeeding.name = getuser.name
+        getuser.total_unpaid_fines--;
+        await getuser.save()
+    }
+
+    if(Overspeeding.email == 'anonymous@nu.edu.pk'){
+        Overspeeding.name = 'Anonymous'
+        
+        const listing = await OverspeedingListing.findByIdAndUpdate(id,Overspeeding)
+       
+        res.redirect("/admin/listings");
+    }
+    else{
+        email = Overspeeding.email
+        const getuser = await User.findOne(
+            { email: email }, // Query to find the document with the specified email
+          );
+        Overspeeding.name = getuser.name
+     
+
+    
+    const listing2 = await OverspeedingListing.findByIdAndUpdate(id,Overspeeding)
+    if(Overspeeding.is_fine_paid == 'false'){
+    
+    getuser.total_unpaid_fines++;
+    await getuser.save()
+    }
     res.redirect("/admin/listings");
+}
+
 });
 
-//user update route
+//Update user by id from Admin interface
 app.put("/admin/users/:id", async (req,res) => {
     let {id} = req.params;
     req.body.User.number_plate = req.body.User.number_plate.split(',').map(plate => plate.trim());
@@ -436,6 +490,71 @@ app.delete("/admin/users/:id", async (req,res) => {
     await User.findByIdAndDelete(id);
     res.redirect("/admin/totalusers");
 });
+
+app.post("/user/pay-fine", async (req,res) => {
+    let ids = []
+  
+    if(req.body.amount == 1){
+        ids.push(req.body.id)
+       }
+       else{
+        for(let i=0;i<req.body.amount;i++){
+            ids.push(req.body.id[i])
+        }
+       }
+
+    
+    res.render("./overspeedings/usersview/userpaymentinterface.ejs",{ids});
+});
+
+app.post("/user/process-card", async (req,res) => {
+    let idsString = req.body.ids
+    let ids = idsString.split(',').map(id => id.trim()).filter(id => id !== "");
+    let Overspeeding = await OverspeedingListing.findByIdAndUpdate(
+        ids[0],
+        { "is_fine_paid": true}
+    )
+    const email = Overspeeding.email
+    const Userobj = await User.findOne({"email": email})
+    Userobj.total_unpaid_fines --
+    await Userobj.save();
+    
+    if(ids.length > 1){
+    for(let i = 1;i<ids.length;i++){
+         Overspeeding = await OverspeedingListing.findByIdAndUpdate(
+            ids[i],
+            { "is_fine_paid": true}
+        )
+        Userobj.total_unpaid_fines --
+    await Userobj.save();
+    }
+}
+   res.redirect("/user/listings/unpaid");
+   // res.redirect("/user/markfinepaid");
+});
+
+app.get("/user/markfinepaid",async(req,res) => {
+console.log(req.body)
+    res.redirect("/user/listings/unpaid");
+});
+
+app.put("/admin/pay-fine/:id",async(req,res) => {
+const id = req.params.id
+let Overspeeding = await OverspeedingListing.findByIdAndUpdate(
+    id,
+    { "is_fine_paid": true}
+)
+if(Overspeeding.name != 'Anonymous'){
+    const email = Overspeeding.email
+    const Userobj = await User.findOne({"email": email})
+    Userobj.total_unpaid_fines --
+    await Userobj.save();
+}
+const flashmessage = "Fine for User " + Overspeeding.name + " was marked paid"
+req.flash("success",flashmessage)
+res.redirect("/admin/listings/unpaid")
+})
+
 
 
 

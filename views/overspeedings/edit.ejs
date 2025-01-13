@@ -5,12 +5,12 @@
             <h3>Edit Overspeeding Listing</h3>
             <form method="POST" action="/admin/listings/<%= listing._id %>?_method=PUT">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name:</label>
-                    <input type="text" class="form-control" id="name" name="OverspeedingListing[name]" value="<%= listing.name %>" required>
-                </div>
-                <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
-                    <input type="email" id="email" name="OverspeedingListing[email]" value="<%= listing.email%>" class="form-control" required>
+                    <select id="email" name="OverspeedingListing[email]" class="form-control" required>
+                        <% emailArray.forEach(email => { %>
+                            <option value="<%= email %>" <%= email === listing.email ? 'selected' : '' %>><%= email %></option>
+                        <% }) %>
+                    </select>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-md-6">
@@ -19,24 +19,13 @@
                     </div>
                     <div class="mb-3 col-md-6">
                         <label for="overspeeding_amount" class="form-label">Overspeeding Amount:</label>
-                        <input type="number" id="overspeeding_amount" name="OverspeedingListing[overspeeding_amount]"value="<%= listing.overspeeding_amount%>" class="form-control" required>
+                        <input type="number" id="overspeeding_amount" name="OverspeedingListing[overspeeding_amount]" value="<%= listing.overspeeding_amount%>" class="form-control" required>
                     </div>
                 </div>
-                
-                <div class="mb-3">
-                    <label for="photo" class="form-label">Photo URL:</label>
-                    <input type="url" id="photo" name="OverspeedingListing[photo]" value="<%= listing.photo%>" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="is_fine_paid" class="form-label">Is Fine Paid?</label>
-                    <select id="is_fine_paid" name="OverspeedingListing[is_fine_paid]" class="form-control" required>
-                        <option value="false">No</option>
-                        <option value="true">Yes</option>
-                    </select>
-                </div>
+                <input type="hidden" name="OverspeedingListing[is_fine_paid]" value="<%= listing.is_fine_paid %>">
+
                 <button type="submit" class="btn btn-dark add-btn mt-3 mb-3">Edit</button>
             </form>
         </div>
     </div>
 </div>
-    

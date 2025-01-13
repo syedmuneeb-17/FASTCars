@@ -17,7 +17,7 @@
                             </a>
                         </h5>
                         <p class="card-text">
-                            <strong>Overspeeding Amount:</strong> <%= listing.overspeeding_amount %>km/h<br>
+                            <strong>Overspeeding Amount:</strong> <%= listing.overspeeding_amount %> km/h<br>
                             <strong>Number Plate:</strong> <%= listing.number_plate %><br>
                             <strong>Status:</strong>
                             <span class="card-status <%= listing.is_fine_paid ? 'status-paid' : 'status-unpaid' %>">
@@ -25,10 +25,29 @@
                             </span>
                         </p>
                         <a href="/user/listings/<%= listing._id %>" class="btn btn-primary">View Details</a>
+                        <!-- Pay Fine Form -->
+                        <form action="/user/pay-fine" method="POST" class="mt-2">
+                            <input type="hidden" name="id" value="<%= listing._id %>">
+                            <input type="hidden" name="amount" value=1>
+                            <button type="submit" class="btn btn-danger">Pay Fine</button>
+                        </form>
                     </div>
                 </div>
             </div>
             <% }) %>
+
+            <!-- Pay All Fines Button -->
+            <div class="col-12 text-center mt-4">
+                <form action="/user/pay-fine" method="POST">
+                    <% unpaidListings.forEach(listing => { %>
+                        <input type="hidden" name="id" value="<%= listing._id %>">
+                    <% }) %>
+                    <input type="hidden" name="amount" value=<%= unpaidListings.length %>>
+                    <button type="submit" class="btn btn-success">
+                        Pay All Fines: Total: <%= unpaidListings.length * 2000 %>
+                    </button>
+                </form>
+            </div>
         <% } %>
     </div>
 </div>

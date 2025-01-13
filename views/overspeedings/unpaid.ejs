@@ -1,6 +1,13 @@
 <% layout('layouts/boilerplate') %>
 <div class="container mt-5">
+   
     <h3 class="text-center mb-4">All Unpaid Listings</h3>
+    <% if (success && success.length > 0) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= success %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
     <div class="row">
         <% if (unpaidListings.length === 0) { %>
             <div class="col-12 text-center">
@@ -17,7 +24,7 @@
                             </a>
                         </h5>
                         <p class="card-text">
-                            <strong>Overspeeding Amount:</strong> <%= listing.overspeeding_amount %>km/h<br>
+                            <strong>Overspeeding Amount:</strong> <%= listing.overspeeding_amount %> km/h<br>
                             <strong>Number Plate:</strong> <%= listing.number_plate %><br>
                             <strong>Status:</strong>
                             <span class="card-status <%= listing.is_fine_paid ? 'status-paid' : 'status-unpaid' %>">
@@ -25,6 +32,11 @@
                             </span>
                         </p>
                         <a href="/admin/listings/<%= listing._id %>" class="btn btn-primary">View Details</a>
+                        <div>
+                            <form action="/admin/pay-fine/<%= listing._id %>?_method=PUT" method="POST" class="mt-2">
+                                <button type="submit" class="btn btn-danger">Pay Fine</button>
+                              </form>
+                        </div>
                     </div>
                 </div>
             </div>
