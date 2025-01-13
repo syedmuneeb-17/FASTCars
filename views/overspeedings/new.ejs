@@ -4,20 +4,21 @@
         <br><br>
         <h3>Create New Overspeeding Listing</h3>
         <form action="/admin/listings" method="POST">
+           
             <div class="mb-3">
-                <label for="name" class="form-label">Name:</label>
-                <input type="text" id="name" name="OverspeedingListing[name]" placeholder="Enter User's name" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label" >Email:</label>
-                <input type="email" id="email" name="OverspeedingListing[email]" placeholder="Enter User's email" class="form-control" required>
+                <label for="email" class="form-label">Email:</label>
+                <select id="email" name="OverspeedingListing[email]" class="form-control" required>
+                    <% emailArray.forEach(email => { %>
+                        <option value="<%= email %>"><%= email %></option>
+                    <% }); %>
+                </select>
             </div>
             <div class="row">
-                <div class="mb-3 col-md-6 ">
+                <div class="mb-3 col-md-6">
                     <label for="number_plate" class="form-label">Number Plate:</label>
                     <input type="text" id="number_plate" name="OverspeedingListing[number_plate]" placeholder="Enter the number plate" class="form-control" required>
                 </div>
-                <div class="mb-3 col-md-6" > 
+                <div class="mb-3 col-md-6"> 
                     <label for="overspeeding_amount" class="form-label">Overspeeding Amount:</label>
                     <input type="number" id="overspeeding_amount" name="OverspeedingListing[overspeeding_amount]" placeholder="Enter overspeeding amount (km/h)" class="form-control" required>
                 </div>
@@ -26,16 +27,9 @@
                 <label for="photo" class="form-label">Photo URL:</label>
                 <input type="url" id="photo" name="OverspeedingListing[photo]" placeholder="Enter photo URL" class="form-control" required>  
             </div>
-            <div class="mb-3">
-                <label for="is_fine_paid" class="form-label">Is Fine Paid?</label>
-                <select id="is_fine_paid" name="OverspeedingListing[is_fine_paid]" class="form-control" required>
-                <option value="false">No</option>
-                <option value="true">Yes</option>
-                </select>
-            </div>
+            <input type="hidden" id="is_fine_paid" name="OverspeedingListing[is_fine_paid]" value="false">
             
             <button type="submit" class="btn btn-dark add-btn mt-3 mb-3">Add Listing</button>
-            
         </form>
     </div>
 </div>

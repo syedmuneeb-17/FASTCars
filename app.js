@@ -363,12 +363,15 @@ app.get("/user/listings/unpaid", async (req, res) => {
 
 
 //new route
-app.get("/admin/listings/new", (req, res) => {
+app.get("/admin/listings/new", async(req, res) => {
     if(!req.isAuthenticated()){
         req.flash("error", "You need to be logged in to create a listing");
         return res.redirect("/login");
     }
-    res.render("./overspeedings/new.ejs");
+    const emails = await User.find({}, "email").lean();
+    let emailArray = emails.map(user => user.email);
+    emailArray.push('anonymous@nu.edu.pk')
+    res.render("./overspeedings/new.ejs",{emailArray});
 }); 
 
 
@@ -402,6 +405,12 @@ app.get("/user/info", async(req, res) => {
 
 //create route
 app.post("/admin/listings", async (req, res) => {
+    const getuser = await User.findOne(
+        { email:  req.body.OverspeedingListing.email }, // Query to find the document with the specified email
+      );
+    req.body.OverspeedingListing.name = getuser.name
+    getuser.total_unpaid_fines++;
+    await getuser.save()
     const newListing = new OverspeedingListing(req.body.OverspeedingListing);
     await newListing.save();
     req.flash("success", "Listing created successfully");
@@ -554,6 +563,25 @@ const flashmessage = "Fine for User " + Overspeeding.name + " was marked paid"
 req.flash("success",flashmessage)
 res.redirect("/admin/listings/unpaid")
 })
+
+app.put("/admin/unpay-fine/:id",async(req,res) => {
+    const id = req.params.id
+    let Overspeeding = await OverspeedingListing.findByIdAndUpdate(
+        id,
+        { "is_fine_paid": false}
+    )
+    if(Overspeeding.name != 'Anonymous'){
+        const email = Overspeeding.email
+        const Userobj = await User.findOne({"email": email})
+        Userobj.total_unpaid_fines ++
+        await Userobj.save();
+    }
+    const flashmessage = "Fine for User " + Overspeeding.name + " was marked unpaid"
+    req.flash("success",flashmessage)
+    res.redirect("/admin/listings/paid")
+    })
+    
+    
 
 
 

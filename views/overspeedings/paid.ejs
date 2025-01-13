@@ -24,7 +24,13 @@
                                     <span class="text-success font-weight-bold">Fine Paid</span>
                                 </p>
                                 <a href="/admin/listings/<%= listing._id %>" class="btn btn-primary">View Details</a>
+                                <div>
+                                    <form action="/admin/unpay-fine/<%= listing._id %>?_method=PUT" method="POST" class="mt-2">
+                                        <button type="submit" class="btn btn-danger">Mark Fine Unpaid</button>
+                                      </form>
+                                </div>
                             </div>
+                            
                         </div>
                     </div>
                 <% } %>
