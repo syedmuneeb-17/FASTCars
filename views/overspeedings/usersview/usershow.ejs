@@ -1,17 +1,39 @@
 <% layout('layouts/userboilerplate') %>
+
 <div class="row mt-3">
     <div class="col-5 offset-3">
-        <h3>Overspeeding Listing Details</h3>
+        <h3 class="fw-bold ">
+            <i class="bi bi-speedometer2"></i> Overspeeding Listing Details
+        </h3>
     </div>
+
     <div class="card col-5 offset-3">
-        <img src="<%= listing.photo %>" class="card-img-top show-img" alt="number plate image">
+        <img src="<%= listing.photo %>" class="card-img-top show-img fixed-image" alt="Number Plate Image">
         <div class="card-body">
-            <p class="card-text">Name: <%= listing.name %></p>
-            <p class="card-text">Email: <%= listing.email %></p>
-            <p class="card-text">Number Plate: <%= listing.number_plate %></p>
-            <p class="card-text">Overspeed amount: <%= listing.overspeeding_amount %> km/h</p>
-            <p class="card-text">Status: <b><%= listing.is_fine_paid ? "Fine Paid" : "Fine Not Paid" %></b></p>
-            <p> <a href="/user/listings">Back to Listings</a></p>
+            <p class="card-text"> <strong>Name:</strong> <%= listing.name %></p>
+            <p class="card-text"> <strong>Email:</strong> <%= listing.email %></p>
+            <p class="card-text"> <strong>Number Plate:</strong> <%= listing.number_plate %></p>
+            <p class="card-text"> <strong>Overspeed Amount:</strong> <%= listing.overspeeding_amount %> km/h</p>
+            <p class="card-text">
+                <i class="bi bi-exclamation-circle"></i> <strong>Status:</strong> 
+                <span class="<%= listing.is_fine_paid ? 'text-success fw-bold' : 'text-danger fw-bold' %>">
+                    <%= listing.is_fine_paid ? "Fine Paid" : "Fine Not Paid" %>
+                </span>
+            </p>
+            <p>
+                <a href="/user/listings" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to Listings
+                </a>
+            </p>
         </div>       
     </div>
 </div>
+
+<!-- CSS to ensure consistent image sizing -->
+<style>
+  .fixed-image {
+    width: 100%;
+    height: 250px; /* Fixed height for consistency */
+    object-fit: cover;
+  }
+</style>

@@ -14,8 +14,10 @@ const bcrypt = require("bcrypt");
 const passport = require('passport');
 const LocalStrategy = require("passport-local");
 const flash = require("connect-flash");
+require('dotenv').config();
 
-const MONGO_URL = "mongodb+srv://k213225:p2jQj40WAdzc4EZC@fastcars.kgzrh.mongodb.net/fypproject";
+
+const MONGO_URL = process.env.DB_URL;
 
 
 main()

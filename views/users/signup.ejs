@@ -1,122 +1,80 @@
 <% layout("/layouts/boilerplate") %>
 
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <!-- Signup Header -->
-            <h1 class="text-center mb-4">Signup</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <!-- Signup Form Container -->
+      <div class="form-container">
+        <!-- Signup Header -->
+        <h1 class="text-center mb-3">Signup</h1>
+        <p class="text-center text-muted mb-4">Add a new user to the system</p>
 
-            <% if (error && error.length > 0) { %>
-                
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <%= error %>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <% } %>
-
-            <!-- Signup Form -->
-            <form action="/admin/signup" method="POST" class="needs-validation" novalidate>
-                <!-- Name Field -->
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input 
-                        name="name" 
-                        id="name" 
-                        type="text" 
-                        class="form-control" 
-                        placeholder="Enter User's name" 
-                        required 
-                    />
-                    <div class="invalid-feedback">
-                        Please enter your name.
-                    </div>
-                </div>
-
-                <!-- username field -->
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input 
-                        name="username" 
-                        id="username" 
-                        type="text" 
-                        class="form-control" 
-                        placeholder="Enter User's username" 
-                        required 
-                    />
-                    <div class="invalid-feedback">
-                        Please enter your name.
-                    </div>
-                </div>
- 
-                <!-- Email Field -->
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input 
-                        name="email" 
-                        id="email" 
-                        type="email" 
-                        class="form-control" 
-                        placeholder="Enter User's email" 
-                        required 
-                    />
-                    <div class="invalid-feedback">
-                        Please enter a valid email address.
-                    </div>
-                </div>
-
-                <!-- Password Field -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input 
-                        name="password" 
-                        id="password" 
-                        type="password" 
-                        class="form-control" 
-                        placeholder="Enter User's password" 
-                        required 
-                    />
-                    <div class="invalid-feedback">
-                        Please enter a password.
-                    </div>
-                </div>
-                <!-- total unpaid fine -->
-                <input 
-                        name="total_unpaid_fines" 
-                        id="total_unpaid_fines" 
-                        type="hidden" 
-                        value= 0 
-                    />
-
-                <!-- Number Plate Field -->
-                <div class="mb-3">
-                    <label for="number_plate" class="form-label">Number Plate(s)</label>
-                    <input 
-                        name="number_plate" 
-                        id="number_plate" 
-                        type="text" 
-                        class="form-control" 
-                        placeholder="Enter your number plate(s), separated by commas" 
-                        required 
-                    />
-                    <div class="invalid-feedback">
-                        Please enter at least one number plate.
-                    </div>
-                </div>
-
-                <!-- role field -->
-                <div class="mb-3">
-                    <label for="role" class="form-label">Role</label>
-                    <select name="role" id="role" class="form-control" required>
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
-                    </select>
-                    <div class="invalid-feedback">
-                        Please select a role.
-                    </div>
-
-                <!-- Signup Button -->
-                <button type="submit" class="btn btn-primary w-100">Add User</button>
-            </form>
+        <% if (error && error.length > 0) { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <%= error %>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
         </div>
+        <% } %>
+
+        <!-- Signup Form -->
+        <form action="/admin/signup" method="POST" class="needs-validation" novalidate>
+          <!-- Name Field -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input name="name" id="name" type="text" class="form-control" placeholder="Enter User's name" required />
+            <div class="invalid-feedback">Please enter your name.</div>
+          </div>
+
+          <!-- Username Field -->
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input name="username" id="username" type="text" class="form-control" placeholder="Enter User's username" required />
+            <div class="invalid-feedback">Please enter your username.</div>
+          </div>
+
+          <!-- Email Field -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input name="email" id="email" type="email" class="form-control" placeholder="Enter User's email" required />
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input name="password" id="password" type="password" class="form-control" placeholder="Enter User's password" required />
+            <div class="invalid-feedback">Please enter a password.</div>
+          </div>
+
+          <!-- Hidden Unpaid Fines Field -->
+          <input name="total_unpaid_fines" id="total_unpaid_fines" type="hidden" value="0" />
+
+          <!-- Number Plate Field -->
+          <div class="mb-3">
+            <label for="number_plate" class="form-label">Number Plate(s)</label>
+            <input name="number_plate" id="number_plate" type="text" class="form-control" placeholder="Enter your number plate(s), separated by commas" required />
+            <div class="invalid-feedback">Please enter at least one number plate.</div>
+          </div>
+
+          <!-- Role Field -->
+          <div class="mb-3">
+            <label for="role" class="form-label">Role</label>
+            <select name="role" id="role" class="form-select" required>
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+            </select>
+            <div class="invalid-feedback">Please select a role.</div>
+          </div>
+
+          <!-- Signup Button -->
+          <button type="submit" class="btn btn-primary w-100">Add User</button>
+        </form>
+      </div>
     </div>
+  </div>
 </div>

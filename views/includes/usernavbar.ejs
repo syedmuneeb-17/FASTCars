@@ -1,3 +1,76 @@
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+/>
+<script
+src="https://kit.fontawesome.com/a076d05399.js"
+crossorigin="anonymous"
+></script>
+
+<style>
+/* Gradient Background */
+.navbar {
+  background: linear-gradient(45deg, #02AABD, #00CDAC);
+}
+
+/* Navbar Brand Icon Animation */
+.navbar-brand i {
+  font-size: 1.8rem;
+  color: white;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.navbar-brand i:hover {
+  transform: rotate(15deg) scale(1.2);
+  color: #ffdd57; /* Accent color */
+}
+
+/* Navbar Links Styling */
+.navbar-nav .nav-link {
+  color: white !important;
+  font-weight: bold;
+  opacity: 1; /* Always visible */
+  animation: fadeIn 0.8s ease-in-out;
+  transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+/* Hover Effects */
+.navbar-nav .nav-link:hover {
+  color: #ffdd57;
+  transform: translateY(-3px);
+}
+
+/* Active Link Styling */
+.navbar-nav .nav-link.active {
+  color: #ffdd57 !important;
+  text-decoration: underline;
+}
+
+/* Toggler Button Styling */
+.navbar-toggler {
+  border: none;
+  outline: none;
+  transition: transform 0.2s ease-in-out;
+}
+
+.navbar-toggler:hover {
+  transform: scale(1.1);
+}
+
+/* Ensure Links are Always Visible */
+@media (max-width: 768px) {
+  .navbar-collapse {
+    background: linear-gradient(45deg, #264653, #669bbc);
+    padding: 10px;
+  }
+  .navbar-nav .nav-link {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    opacity: 1; /* Keep links visible */
+  }
+}
+</style>
 <nav class="navbar navbar-expand-md bg-body-light sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="/user/home"><i class="fa-solid fa-car-burst"></i></a>
@@ -6,7 +79,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-link active"  href="/user/home">Home</a>
+            <a class="nav-link"  href="/user/home">Home</a>
             <a class="nav-link" href="/user/listings">Overspeeding</a>
             <a class="nav-link" href="/user/listings/paid">Paid</a>
             <a class="nav-link" href="/user/listings/unpaid">Unpaid</a>    

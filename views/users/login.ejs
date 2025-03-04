@@ -1,48 +1,54 @@
 <% layout("/layouts/commonboilerplate") %>
 
-<div class="container mt-5">
+<div class="container mt-0">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <!-- Login Header -->
-            <h1 class="text-center mb-4">Login</h1>
-            
-            <!-- Login Form -->
-            <form action="/login" method="POST" class="needs-validation" novalidate>
-                <!-- Email Field -->
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input 
-                        name="username" 
-                        id="username" 
-                        type="username" 
-                        class="form-control" 
-                        placeholder="Enter your username" 
-                        required 
-                    />
-                    <div class="invalid-feedback">
-                        Please enter a valid email address.
+        <div class="col-lg-4 col-md-7 col-sm-9">
+            <!-- Login Form Container -->
+            <div class="form-container">
+                <!-- Header -->
+                <h1 class="text-center mb-3">Welcome Back</h1>
+                <p class="text-center text-muted mb-4">
+                    Please log in to your account to continue.
+                </p>
+
+                <!-- Login Form -->
+                <form action="/login" method="POST" class="needs-validation" novalidate>
+                    <!-- Username Field -->
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input 
+                            name="username" 
+                            id="username" 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Enter your username" 
+                            required 
+                        />
+                        <div class="invalid-feedback">
+                            Please enter your username.
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Password Field -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input 
-                        name="password" 
-                        id="password" 
-                        type="password" 
-                        class="form-control" 
-                        placeholder="Enter your password" 
-                        required 
-                    />
-                    <div class="invalid-feedback">
-                        Please enter your password.
+
+                    <!-- Password Field -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input 
+                            name="password" 
+                            id="password" 
+                            type="password" 
+                            class="form-control" 
+                            placeholder="Enter your password" 
+                            required 
+                        />
+                        <div class="invalid-feedback">
+                            Please enter your password.
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Login Button -->
-                <button type="submit" class="btn btn-success w-100">Login</button>
-            </form>
+
+                    <!-- Login Button -->
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
