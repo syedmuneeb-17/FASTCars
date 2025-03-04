@@ -15,7 +15,7 @@
 
 /* General Styles */
 body {
-    background: linear-gradient(to right, #1fa2ff, #12d8fa, #a6ffcb);
+    background: linear-gradient(to right, #114B5F, #1C7C9C, #A8DEF0);
     font-family: var(--font-family);
     display: flex;
     flex-direction: column;
