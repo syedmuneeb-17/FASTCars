@@ -3,29 +3,31 @@
     <div class="col-8 offset-2">
         <div class="container">
             <h3>Edit Overspeeding Listing</h3>
-            <form method="POST" action="/admin/listings/<%= listing._id %>?_method=PUT">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email:</label>
-                    <select id="email" name="OverspeedingListing[email]" class="form-control" required>
-                        <% emailArray.forEach(email => { %>
-                            <option value="<%= email %>" <%= email === listing.email ? 'selected' : '' %>><%= email %></option>
-                        <% }) %>
-                    </select>
-                </div>
-                <div class="row">
-                    <div class="mb-3 col-md-6">
-                        <label for="number_plate" class="form-label">Number Plate:</label>
-                        <input type="text" id="number_plate" name="OverspeedingListing[number_plate]" value="<%= listing.number_plate%>" class="form-control" required>
+            <div class="form-container">
+                <form method="POST" action="/admin/listings/<%= listing._id %>?_method=PUT">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <select id="email" name="OverspeedingListing[email]" class="form-control" size="1" required>
+                            <% emailArray.forEach(email => { %>
+                                <option value="<%= email %>" <%= email === listing.email ? 'selected' : '' %>><%= email %></option>
+                            <% }) %>
+                        </select>
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <label for="overspeeding_amount" class="form-label">Overspeeding Amount:</label>
-                        <input type="number" id="overspeeding_amount" name="OverspeedingListing[overspeeding_amount]" value="<%= listing.overspeeding_amount%>" class="form-control" required>
+                    <div class="row">
+                        <div class="mb-3 ">
+                            <label for="number_plate" class="form-label">Number Plate:</label>
+                            <input type="text" id="number_plate" name="OverspeedingListing[number_plate]" value="<%= listing.number_plate%>" class="form-control" required>
+                        </div>
+                        <div class="mb-3 ">
+                            <label for="overspeeding_amount" class="form-label">Overspeeding Amount:</label>
+                            <input type="number" id="overspeeding_amount" name="OverspeedingListing[overspeeding_amount]" value="<%= listing.overspeeding_amount%>" class="form-control" required>
+                        </div>
                     </div>
-                </div>
-                <input type="hidden" name="OverspeedingListing[is_fine_paid]" value="<%= listing.is_fine_paid %>">
+                    <input type="hidden" name="OverspeedingListing[is_fine_paid]" value="<%= listing.is_fine_paid %>">
 
-                <button type="submit" class="btn btn-dark add-btn mt-3 mb-3">Edit</button>
-            </form>
+                    <button type="submit" class="btn btn-dark add-btn mt-3 mb-3">Edit</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
