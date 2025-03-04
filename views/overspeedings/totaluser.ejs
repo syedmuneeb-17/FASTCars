@@ -1,22 +1,58 @@
 <% layout('layouts/boilerplate') %>
-<div class="container">
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-        <% allUsers.forEach(user => { %>
-            <div class="col mb-4">
-                <div class="card shadow-lg">
-                    
-                    <div class="card-body">
-                        <h5 class="card-title"><%= user.name %></h5>
-                        <p class="card-text">
-                            <strong>Email:</strong> <%= user.email %><br>
-                            <strong>Role:</strong> <%= user.role %><br>
-                            <strong>Number Plate:</strong> <%= user.number_plate.join(", ") %><br>
-                            <strong>Total Unpaid Fines:</strong> <%= user.total_unpaid_fines %>
-                        </p>
-                        <a href="/admin/users/<%= user._id %>" class="btn btn-primary">View Details</a>
-                    </div>
-                </div>
-            </div>
-        <% }) %>
+
+<div class="container mt-4">
+  <h3 class="text-center fw-bold mb-4">User Management</h3>
+
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
+    <% if (allUsers.length === 0) { %>
+    <div class="col-12 text-center">
+      <p class="text-muted fs-5">No users found.</p>
     </div>
+    <% } else { %> <% allUsers.forEach(user => { %>
+    <div class="col">
+      <div class="card shadow-lg border-0 h-100">
+        <div class="card-body d-flex flex-column">
+          <!-- User Info -->
+          <h5 class="card-title text-primary fw-bold"><%= user.name %></h5>
+          <p class="card-text mb-2">
+            <strong>Email:</strong>
+            <span class="text-dark"><%= user.email %></span>
+          </p>
+          <p class="card-text mb-2">
+            <strong>Role:</strong>
+            <span
+              class="<%= user.role === 'admin' ? 'badge bg-success' : 'badge bg-secondary' %>"
+            >
+              <%= user.role %>
+            </span>
+          </p>
+          <p class="card-text mb-2">
+            <strong>Number Plate(s):</strong>
+            <span class="text-primary fw-semibold"
+              ><%= user.number_plate.join(", ") %></span
+            >
+          </p>
+          <p class="card-text mb-3">
+            <strong>Total Unpaid Fines:</strong>
+            <span
+              class="fw-bold <%= user.total_unpaid_fines > 0 ? 'text-danger' : 'text-success' %>"
+            >
+              <%= user.total_unpaid_fines %>
+            </span>
+          </p>
+
+          <!-- View Details Button -->
+          <div class="mt-auto">
+            <a
+              href="/admin/users/<%= user._id %>"
+              class="btn btn-primary w-100"
+            >
+              🔍 View Details
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %> <% } %>
+  </div>
 </div>

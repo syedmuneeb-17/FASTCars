@@ -1,36 +1,80 @@
 <% layout("/layouts/boilerplate") %>
-<div class="row mt-3">
-    <div class="col-8 offset-2">
-        <br><br>
-        <h3>Create New Overspeeding Listing</h3>
-        <form action="/admin/listings" method="POST">
-           
-            <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <select id="email" name="OverspeedingListing[email]" class="form-control" required>
-                    <% emailArray.forEach(email => { %>
-                        <option value="<%= email %>"><%= email %></option>
-                    <% }); %>
-                </select>
-            </div>
-            <div class="row">
-                <div class="mb-3 col-md-6">
-                    <label for="number_plate" class="form-label">Number Plate:</label>
-                    <input type="text" id="number_plate" name="OverspeedingListing[number_plate]" placeholder="Enter the number plate" class="form-control" required>
-                </div>
-                <div class="mb-3 col-md-6"> 
-                    <label for="overspeeding_amount" class="form-label">Overspeeding Amount:</label>
-                    <input type="number" id="overspeeding_amount" name="OverspeedingListing[overspeeding_amount]" placeholder="Enter overspeeding amount (km/h)" class="form-control" required>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="photo" class="form-label">Photo URL:</label>
-                <input type="url" id="photo" name="OverspeedingListing[photo]" placeholder="Enter photo URL" class="form-control" required>  
-            </div>
-            <input type="hidden" id="is_fine_paid" name="OverspeedingListing[is_fine_paid]" value="false">
-            
-            <button type="submit" class="btn btn-dark add-btn mt-3 mb-3">Add Listing</button>
-        </form>
+
+<div class="row mt-4 justify-content-center">
+  <div class="col-lg-8 col-md-10">
+    <div class="form-container">
+      <h3 class="text-center text-primary mb-4">
+         Create New Overspeeding Listing!
+      </h3>
+      <form action="/admin/listings" method="POST">
+        <!-- Email Selection -->
+        <div class="mb-3">
+          <label for="email" class="form-label fw-bold">
+            <i class="bi bi-envelope"></i> Email:
+          </label>
+          <select id="email" name="OverspeedingListing[email]" class="form-select" required>
+            <% emailArray.forEach(email => { %>
+            <option value="<%= email %>"><%= email %></option>
+            <% }); %>
+          </select>
+        </div>
+
+        <div class="row">
+          <!-- Number Plate -->
+          <div class="mb-3 ">
+            <label for="number_plate" class="form-label fw-bold">
+              <i class="bi bi-car-front"></i> Number Plate:
+            </label>
+            <input
+              type="text"
+              id="number_plate"
+              name="OverspeedingListing[number_plate]"
+              placeholder="Enter the number plate"
+              class="form-control border-primary shadow-sm"
+              required
+            />
+          </div>
+
+          <!-- Overspeeding Amount -->
+          <div class="mb-3 ">
+            <label for="overspeeding_amount" class="form-label fw-bold">
+              <i class="bi bi-speedometer"></i> Overspeeding Amount:
+            </label>
+            <input
+              type="number"
+              id="overspeeding_amount"
+              name="OverspeedingListing[overspeeding_amount]"
+              placeholder="Enter overspeeding amount (km/h)"
+              class="form-control border-primary shadow-sm"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Photo URL -->
+        <div class="mb-3">
+          <label for="photo" class="form-label fw-bold">
+            <i class="bi bi-camera"></i> Photo URL:
+          </label>
+          <input
+            type="url"
+            id="photo"
+            name="OverspeedingListing[photo]"
+            placeholder="Enter photo URL"
+            class="form-control border-primary shadow-sm"
+            required
+          />
+        </div>
+
+        <input type="hidden" id="is_fine_paid" name="OverspeedingListing[is_fine_paid]" value="false" />
+
+        <!-- Submit Button -->
+        <div class="text-center">
+          <button type="submit" class="btn btn-lg btn-primary add-btn mt-3 mb-2 px-4 py-2 shadow-sm">
+            <i class="bi bi-check-circle"></i> Add Listing
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
-</body>

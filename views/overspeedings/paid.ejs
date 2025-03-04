@@ -1,40 +1,64 @@
 <% layout('layouts/boilerplate') %>
-<body>
-    <div class="container mt-5">
-        <h3 class="text-center mb-4">All Paid Listings</h3>
-        <div class="row">
-            <% if (paidListings.length === 0) { %>
-                <div class="col-12 text-center">
-                    <p class="text-muted">No paid listings available.</p>
-                </div>
-            <% } else { %>
-                <% for (let listing of paidListings) { %>
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="/admin/listings/<%= listing._id %>" class="text-decoration-none">
-                                        <%= listing.name %>
-                                    </a>
-                                </h5>
-                                <p class="card-text">
-                                    <strong>Overspeeding Amount:</strong> <%= listing.overspeeding_amount %> km/h<br>
-                                    <strong>Number Plate:</strong> <%= listing.number_plate %><br>
-                                    <strong>Status:</strong> 
-                                    <span class="text-success font-weight-bold">Fine Paid</span>
-                                </p>
-                                <a href="/admin/listings/<%= listing._id %>" class="btn btn-primary">View Details</a>
-                                <div>
-                                    <form action="/admin/unpay-fine/<%= listing._id %>?_method=PUT" method="POST" class="mt-2">
-                                        <button type="submit" class="btn btn-danger">Mark Fine Unpaid</button>
-                                      </form>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                <% } %>
-            <% } %>
-        </div>
+
+<div class="container mt-5">
+  <!-- Page Heading -->
+  <h3 class="text-center fw-bold mb-4">
+    <i class="bi bi-check-circle-fill text-success"></i> All Paid Listings
+  </h3>
+
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
+    <% if (paidListings.length === 0) { %>
+    <!-- No Listings Message -->
+    <div class="col-12 text-center">
+      <p class="text-muted fs-5">No paid listings available.</p>
     </div>
-</body>
+    <% } else { %> <% paidListings.forEach(listing => { %>
+    <div class="col">
+      <!-- Listing Card -->
+      <div class="card shadow-lg border-0 h-100">
+        <div class="card-body d-flex flex-column">
+          <!-- Listing Name -->
+          <h5 class="card-title text-success fw-bold">
+            <a
+              href="/admin/listings/<%= listing._id %>"
+              class="text-decoration-none"
+            >
+            <i class="bi bi-car-front-fill text-primary"></i> <%= listing.name %>
+            </a>
+          </h5>
+
+          <!-- Listing Details -->
+          <p class="card-text">
+            <strong> Overspeeding Amount:</strong>
+            <span class="text-danger fw-bold"> <i class="bi bi-speedometer2 text-danger"></i> <%= listing.overspeeding_amount %> km/h</span>
+          </p>
+          <p class="card-text">
+            <strong> Number Plate:</strong>
+            <span class="text-primary fw-semibold"> <i class="bi bi-card-text"></i> <%= listing.number_plate %></span>
+          </p>
+          <p class="card-text">
+            <strong> Status:</strong>
+            <span class="badge bg-success"> <i class="bi bi-check-circle-fill"></i> Fine Paid</span>
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="mt-auto d-flex gap-2">
+            <a href="/admin/listings/<%= listing._id %>" class="btn btn-primary flex-grow-1">
+              <i class="bi bi-eye-fill"></i> View Details
+            </a>
+            <form
+              action="/admin/unpay-fine/<%= listing._id %>?_method=PUT"
+              method="POST"
+              class="flex-grow-1"
+            >
+              <button type="submit" class="btn btn-danger w-100">
+                <i class="bi bi-x-circle-fill"></i> Mark Fine Unpaid
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %> <% } %>
+  </div>
+</div>

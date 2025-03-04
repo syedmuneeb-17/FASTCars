@@ -1,39 +1,95 @@
 <% layout('layouts/boilerplate') %>
+
+<!-- Success Alert Message -->
 <% if (success && success.length > 0) { %>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <%= success %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+<div
+  class="alert alert-success alert-dismissible fade show shadow-sm"
+  role="alert"
+>
+  <%= success %>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
 <% } %>
 
-<h3>All Overspeed Listings</h3>
+<!-- Page Heading -->
+<h3 class="text-center text-primary mt-4 fw-bold">
+  <i class="bi bi-speedometer2"></i> All Overspeed Listings
+</h3>
 
-<!-- Search Bar Form with Search Icon -->
-<form method="GET" action="/admin/listings" class="mb-3" id="search-form">
-    <div class="input-group">
-        <!-- Search Icon as a Button -->
-        <button type="submit" class="btn btn-light input-group-text" id="search-btn">
-            <i class="bi bi-search"></i> <!-- Bootstrap Icons Search Icon -->
-        </button>
-        <!-- Search Input -->
-        <input type="text" name="search" class="form-control" placeholder="Search by Name, Email or Numberplates" value="<%= searchQuery || '' %>">
-    </div>
+<!-- Search Bar -->
+<form
+  method="GET"
+  action="/admin/listings"
+  class="mb-4 d-flex justify-content-center"
+>
+  <div class="input-group w-50 shadow-sm">
+    <!-- Search Button -->
+    <button type="submit" class="btn btn-primary" id="search-btn">
+      <i class="bi bi-search"></i>
+    </button>
+    <!-- Search Input -->
+    <input
+      type="text"
+      name="search"
+      class="form-control border-primary"
+      placeholder="Search by Name, Email, or Number Plate"
+      value="<%= searchQuery || '' %>"
+    />
+  </div>
 </form>
 
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-    <% for(let listing of allListings) { %>
-    <a href="/admin/listings/<%=listing._id%>" class="listing-link">
-        <div class="card listing-card"  >
-            <img src="<%= listing.photo %>" class="card-img-top"  alt="listing image" style="height: 20rem;">
-            <div class="card-img-overlay"></div>
-            <div class="card-body">
-            <p class="card-text">
-                <b><%= listing.name %></b><br>
-                <%= listing.overspeeding_amount %> <br>
-                <%= listing.number_plate %>
-            </p>
-            </div>
+<!-- Listings Grid -->
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
+  <% for(let listing of allListings) { %>
+  <div class="col">
+    <a
+      href="/admin/listings/<%= listing._id %>"
+      class="listing-link text-decoration-none"
+    >
+      <div class="card listing-card shadow-lg border-0 rounded-3 fixed-card">
+        <div class="image-container">
+          <img
+            src="<%= listing.photo %>"
+            class="card-img-top rounded-top fixed-image"
+            alt="Listing Image"
+          />
         </div>
-    </a>   
-    <% } %>
+        <div class="card-body text-center p-3">
+          <h5 class="fw-bold text-dark"><%= listing.name %></h5>
+          <p class="text-muted">
+            <i class="bi bi-speedometer"></i> Speeding: <%= listing.overspeeding_amount %> km/h
+          </p>
+          <p class="text-dark">
+            <i class="bi bi-car-front"></i> Plate: <b><%= listing.number_plate %></b>
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+  <% } %>
 </div>
+
+<!-- CSS to Ensure Consistent Card & Image Sizing -->
+<style>
+  .fixed-card {
+    height: 350px; /* Ensures all cards have the same height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .fixed-image {
+    width: 100%;
+    height: 200px; /* Ensures all images have the same height */
+    object-fit: cover;
+  }
+
+  .card-body {
+    flex-grow: 1;
+  }
+</style>

@@ -1,37 +1,45 @@
 <% layout('layouts/boilerplate') %>
 <div class="container my-4">
-    <div class="card mx-auto" style="max-width: 600px;">
-        <div class="card-header bg-primary text-white">
-            <h3>User Details</h3>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title"><%= listing.name %></h5>
-            <p class="card-text">
-                <strong>Username:</strong> <%= listing.username %><br>
-                <!-- <strong>Password:</strong> <%= listing.hash %><br> -->
-                <strong>Email:</strong> <%= listing.email %><br>
-                <strong>Role:</strong> <%= listing.role %><br>
-                <strong>Number Plate(s):</strong> <%= listing.number_plate.join(", ") %><br>
-                <strong>Total Unpaid Fines:</strong> <%= listing.total_unpaid_fines %>
-            </p>
-        </div>
-        
-
-        <div class="mt-4">
-            <!-- Edit button -->
-            <a href="/admin/users/<%= listing._id %>/edit" class="btn btn-info">Edit</a>
-    
-            <!-- Delete button -->
-            <form method="POST" action="/admin/users/<%= listing._id %>?_method=DELETE" class="d-inline">
-                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">
-                    Delete
-                </button>
-            </form>
-        </div>
-
-
-        <div class="card-footer text-center">
-            <a href="/admin/totalusers" class="btn btn-secondary">Back to All Users</a>
-        </div>
+  <div class="card mx-auto border-0 shadow-sm" style="max-width: 600px; background: transparent;">
+    <!-- User Details -->
+    <div class="form-container bg-white p-4 rounded">
+      <div class="card-header bg-primary text-white">
+        <h3>User Details</h3>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><%= listing.name %></h5>
+        <p class="card-text">
+          <strong>Username:</strong> <%= listing.username %><br />
+          <strong>Email:</strong> <%= listing.email %><br />
+          <strong>Role:</strong> <%= listing.role %><br />
+          <strong>Number Plate(s):</strong> <%= listing.number_plate.join(", ") %><br />
+          <strong>Total Unpaid Fines:</strong> <%= listing.total_unpaid_fines %>
+        </p>
+      </div>
     </div>
+
+    <!-- Buttons Container -->
+    <div class="buttons-container text-center mt-3">
+      <div class="d-grid gap-2">
+        <!-- Edit button -->
+        <a href="/admin/users/<%= listing._id %>/edit" class="btn btn-primary btn-md w-50 mx-auto">
+          <i class="bi bi-pencil-square"></i> Edit
+        </a>
+
+        <!-- Delete button (wrapped in a div for consistency) -->
+        <div class="mx-auto w-50">
+          <form method="POST" action="/admin/users/<%= listing._id %>?_method=DELETE">
+            <button type="submit" class="btn btn-danger btn-md w-100" onclick="return confirm('Are you sure you want to delete this user?');">
+              <i class="bi bi-trash"></i> Delete
+            </button>
+          </form>
+        </div>
+
+        <!-- Back button -->
+        <a href="/admin/totalusers" class="btn btn-secondary btn-md w-50 mx-auto">
+          <i class="bi bi-arrow-left-circle"></i> Back to All Users
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
