@@ -11,6 +11,14 @@
                     <i class="bi bi-pencil-square"></i> Edit User
                 </h3>
 
+                <% if (error && error.length > 0) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <%= error %>
+                     
+                    </div>
+                    <% } %>
+
+
                 <!-- Name -->
                 <div class="mb-3">
                     <label for="name" class="form-label fw-semibold">Name:</label>
@@ -53,7 +61,7 @@
                     <select class="form-select" id="role" name="User[role]" required>
                         <option value="admin" <%= listing.role === 'admin' ? 'selected' : '' %>>Admin</option>
                         <option value="user" <%= listing.role === 'user' ? 'selected' : '' %>>User</option>
-                        <option value="anonymous" <%= listing.role === 'anonymous' ? 'selected' : '' %>>Anonymous</option>
+                       
                     </select>
                 </div>
 

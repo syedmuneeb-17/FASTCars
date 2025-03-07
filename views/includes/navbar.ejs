@@ -1,88 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin Navbar</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+/>
+<script
+src="https://kit.fontawesome.com/a076d05399.js"
+crossorigin="anonymous"
+></script>
 
-  <style>
-    /* Gradient Background */
-    .navbar {
-      background: linear-gradient(45deg, #02AABD, #00CDAC);
-    }
+<style>
+/* Gradient Background */
+.navbar {
+  background: linear-gradient(45deg, #02AABD, #00CDAC);
+}
 
-    /* Navbar Brand Icon Animation */
-    .navbar-brand i {
-      font-size: 1.8rem;
-      color: white;
-      transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
-    }
+/* Navbar Brand Icon Animation */
+.navbar-brand i {
+  font-size: 1.8rem;
+  color: white;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
 
-    .navbar-brand i:hover {
-      transform: rotate(15deg) scale(1.2);
-      color: #ffdd57; /* Accent color */
-    }
+.navbar-brand i:hover {
+  transform: rotate(15deg) scale(1.2);
+  color: #ffdd57; /* Accent color */
+}
 
-    /* Navbar Links Styling */
-    .navbar-nav .nav-link {
-      color: white !important;
-      font-weight: bold;
-      opacity: 1; /* Always visible */
-      animation: fadeIn 0.8s ease-in-out;
-      transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    }
+/* Navbar Links Styling */
+.navbar-nav .nav-link {
+  color: white !important;
+  font-weight: bold;
+  opacity: 1; /* Always visible */
+  animation: fadeIn 0.8s ease-in-out;
+  transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
 
-    /* Hover Effects */
-    .navbar-nav .nav-link:hover {
-      color: #ffdd57;
-      transform: translateY(-3px);
-    }
+/* Hover Effects */
+.navbar-nav .nav-link:hover {
+  color: #ffdd57;
+  transform: translateY(-3px);
+}
 
-    /* Active Link Styling */
-    .navbar-nav .nav-link.active {
-      color: #ffdd57 !important;
-      text-decoration: underline;
-    }
+/* Active Link Styling */
+.navbar-nav .nav-link.active {
+  color: #ffdd57 !important;
+  text-decoration: underline;
+}
 
-    /* Toggler Button Styling */
-    .navbar-toggler {
-      border: none;
-      outline: none;
-      transition: transform 0.2s ease-in-out;
-    }
+/* Toggler Button Styling */
+.navbar-toggler {
+  border: none;
+  outline: none;
+  transition: transform 0.2s ease-in-out;
+}
 
-    .navbar-toggler:hover {
-      transform: scale(1.1);
-    }
+.navbar-toggler:hover {
+  transform: scale(1.1);
+}
 
-    /* Ensure Links are Always Visible */
-    @media (max-width: 768px) {
-      .navbar-collapse {
-        background: linear-gradient(45deg, #264653, #669bbc);
-        padding: 10px;
-      }
-      .navbar-nav .nav-link {
-        display: block;
-        text-align: center;
-        padding: 10px;
-        opacity: 1; /* Keep links visible */
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <nav class="navbar navbar-expand-md sticky-top navbar-dark">
+/* Ensure Links are Always Visible */
+@media (max-width: 768px) {
+  .navbar-collapse {
+    background: linear-gradient(45deg,  #02AABD, #00CDAC);
+    padding: 10px;
+  }
+  .navbar-nav .nav-link {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    opacity: 1; /* Keep links visible */
+  }
+}
+</style>
+<nav class="navbar navbar-expand-md bg-body-light sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/admin/listings">
-        <i class="fa-solid fa-car-burst"></i>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <a class="navbar-brand" href="/user/home"><i class="fa-solid fa-car-burst"></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link" href="/admin/home">Home</a>
           <a class="nav-link" href="/admin/listings">Overspeeding</a>
@@ -98,8 +93,3 @@
       </div>
     </div>
   </nav>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-</html>

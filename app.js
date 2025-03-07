@@ -103,7 +103,7 @@ app.use((req, res, next) => {
 // });
 
 //login page
-app.get("/login", (req, res) => {
+app.get(["/login", "/"], (req, res) => {
     res.render("./users/login.ejs"); // Render the login.ejs file
 });
 
@@ -113,7 +113,7 @@ app.post(
     saveRedirectUrl,
     passport.authenticate("local", {
         failureRedirect: "/login",
-        failureFlash: true,
+        failureFlash: "Invalid username or password",
     }),
     async (req, res) => {
         req.flash("success", "Logged in successfully");
@@ -482,11 +482,39 @@ app.put("/admin/listings/:id", async (req,res) => {
 
 //Update user by id from Admin interface
 app.put("/admin/users/:id", async (req,res) => {
-    let {id} = req.params;
+    let { id } = req.params;
+    let listing = await User.findById(id);
+    let { username, email, number_plate } = req.body.User;
+    let error;
+
+    number_plate = number_plate.split(',').map(plate => plate.trim());
     req.body.User.number_plate = req.body.User.number_plate.split(',').map(plate => plate.trim());
-    const listing = await User.findByIdAndUpdate(id, {...req.body.User});
+
+    const existingUsername = await User.findOne({ username, _id: { $ne: id } });
+        if (existingUsername) {
+            error = "Username is already taken by another user";
+            return res.render("./overspeedings/usersview/useredit.ejs", { listing, error });
+            
+        }
+
+        const existingEmail = await User.findOne({ email, _id: { $ne: id } });
+        if (existingEmail) {
+            error = "Email is already taken by another user";
+            return res.render("./overspeedings/usersview/useredit.ejs", { listing, error });
+        }
+
+        const existingPlate = await User.findOne({ number_plate: { $in: number_plate }, _id: { $ne: id } });
+        if (existingPlate) {
+            error= "One or more numberplate is already taken by another user";
+            return res.render("./overspeedings/usersview/useredit.ejs", { listing, error });
+        }
+
+        
+
+    listing = await User.findByIdAndUpdate(id, {...req.body.User});
     res.redirect("/admin/totalusers");
 });
+
 
 //delete route
 app.delete("/admin/listings/:id", async (req,res) => {
