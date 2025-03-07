@@ -11,6 +11,13 @@
                     Please log in to your account to continue.
                 </p>
 
+                <% if (error && error.length > 0) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <%= error %>
+                     
+                    </div>
+                    <% } %>
+
                 <!-- Login Form -->
                 <form action="/login" method="POST" class="needs-validation" novalidate>
                     <!-- Username Field -->
