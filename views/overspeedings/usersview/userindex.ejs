@@ -12,14 +12,37 @@
   <i class="bi bi-speedometer2"></i> Your Overspeed Listings
 </h3>
 
+<!-- Search Bar -->
+<form
+  method="GET"
+  action="/user/listings"
+  class="mb-4 d-flex justify-content-center"
+>
+  <div class="input-group w-sm-75 w-md-100 w-50 shadow-sm">
+    <!-- Search Button -->
+    <button type="submit" class="btn btn-primary" id="search-btn">
+      <i class="bi bi-search"></i>
+    </button>
+    <!-- Search Input -->
+    <input
+      type="text"
+      name="search"
+      class="form-control border-primary"
+      placeholder="Search by Name, Email, or Number Plate"
+      value="<%= searchQuery || '' %>"
+    />
+  </div>
+</form>
+
+
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
-  <% if (userListings.length === 0) { %>
+  <% if (filteredListings.length === 0) { %>
   <!-- No Listings Message -->
   <div class="col-12 text-center">
     <p class="text-muted fs-5">No overspeed listings available.</p>
   </div>
   <% } else { %> 
-  <% userListings.forEach(listing => { %>
+  <% filteredListings.forEach(listing => { %>
   <div class="col">
     <!-- Listing Card -->
     <div class="card shadow-lg border-0 listing-card">

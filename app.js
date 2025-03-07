@@ -292,10 +292,22 @@ app.get("/user/listings", async (req, res) => {
             return res.redirect("/login");
         }
         // Fetch listings for the logged-in user based on their email
+        const searchQuery = req.query.search || '';
         const userListings = await OverspeedingListing.find({ email: req.user.email });
-        
-        // Pass the filtered data to the EJS template
-        res.render("./overspeedings/usersview/userindex.ejs", { userListings });
+        let filteredListings = userListings;
+        if (searchQuery) {
+           
+            // Use MongoDB $regex operator to search for a substring in the fields
+            filteredListings = userListings.filter(listing =>
+                listing.name.match(new RegExp(searchQuery, 'i')) || 
+                listing.email.match(new RegExp(searchQuery, 'i')) || 
+                listing.number_plate.match(new RegExp(searchQuery, 'i')) // Search within array of number plates
+            );
+
+        }
+            // If no search query, show all listings
+            res.render("./overspeedings/usersview/userindex.ejs", { filteredListings, searchQuery });
+       
     } catch (error) {
         
         req.flash("error", "An error occurred while fetching your listings.");
@@ -568,6 +580,8 @@ app.post("/user/process-card", async (req,res) => {
     await Userobj.save();
     }
 }
+   const flashmessage  = "Your fine(s) have been marked paid!"
+   req.flash("success",flashmessage );
    res.redirect("/user/listings/unpaid");
    // res.redirect("/user/markfinepaid");
 });
