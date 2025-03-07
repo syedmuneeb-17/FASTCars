@@ -531,6 +531,15 @@ app.put("/admin/users/:id", async (req,res) => {
 //delete route
 app.delete("/admin/listings/:id", async (req,res) => {
     let {id} = req.params;
+    const listing = await OverspeedingListing.findById(id);
+    const email = listing.email;
+    const is_fine_paid = listing.is_fine_paid;
+   
+    if(email != 'anonymous@nu.edu.pk' && is_fine_paid == 0){
+        const Userobj = await User.findOne({"email": email})
+        Userobj.total_unpaid_fines --
+        await Userobj.save();
+    }
     await OverspeedingListing.findByIdAndDelete(id);
     res.redirect("/admin/listings");
 });
